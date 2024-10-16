@@ -19,7 +19,7 @@ const NPVComparisonChart = ({
   }));
 
   return (
-    <div style={{ height: '400px', width: '100%' }}>
+    <div style={{ height: '380px', width: '100%' }}>
       <ResponsiveContainer>
         <LineChart
           data={data}

@@ -10,6 +10,7 @@ export const BESSOptimization = async ({ capacity, power, loadData, energyCharge
   const p_P = inputs.find(input => input.name === 'Cost of Power Equipment')?.value || 0;
   const p_I = inputs.find(input => input.name === 'Cost of Installation')?.value || 0;
   const kappa = inputs.find(input => input.name === 'Efficiency')?.value / 100 || 1;
+  const deg = inputs.find(input => input.name === 'Degradation')?.value / 100 || 0.02;
   const holdingPeriod = inputs.find(input => input.name === 'Holding Period')?.value || 10;
   const SoC_min = 0.1;
   const SoC_max = 0.95;
@@ -42,7 +43,7 @@ export const BESSOptimization = async ({ capacity, power, loadData, energyCharge
     };
 
     for (let year = 1; year <= holdingPeriod; year++) {
-      npvWithBattery += annualCostWithBattery / Math.pow(1 + discountRate, year);
+      npvWithBattery += annualCostWithBattery * Math.pow(1 + deg, year) / Math.pow(1 + discountRate, year);
       npvWithoutBattery += annualCostWithoutBattery / Math.pow(1 + discountRate, year);
 
       npvByYear.withBattery.push(npvWithBattery);
