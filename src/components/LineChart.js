@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useRef } from 'react';
+import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react';
 import Papa from 'papaparse';
 
 /**
@@ -21,11 +21,10 @@ const LineChartComponent = ({ xLabel = "Time", yLabel = "Value", onDataUpdate, i
   const containerRef = useRef(null);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [error, setError] = useState("");
-  const [csvContent, setCsvContent] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
 
-  // Adjust padding for better spacing
-  const padding = { left: 60, right: 20, top: 20, bottom: 40 }; // Increased bottom padding
+  // Wrap padding object in useMemo
+  const padding = useMemo(() => ({ left: 60, right: 20, top: 20, bottom: 40 }), []);
 
   // Calculate chart dimensions
   const chartWidth = dimensions.width - padding.left - padding.right;
@@ -105,7 +104,7 @@ const LineChartComponent = ({ xLabel = "Time", yLabel = "Value", onDataUpdate, i
         return newPoints;
       });
     }
-  }, [dragIndex, chartHeight, padding, dimensions.height, minY, maxY]);
+  }, [dragIndex, chartHeight, padding, dimensions.height, minY, maxY, onDataUpdate]);
 
   /**
    * Handler for mouse up event to end dragging
@@ -116,7 +115,6 @@ const LineChartComponent = ({ xLabel = "Time", yLabel = "Value", onDataUpdate, i
 
   const pathD = `M ${points.map((p, i) => {
     if (i === 0) return `${xScale(p.x)},${yScale(p.y)}`;
-    const prev = points[i - 1];
     const curr = p;
     
     // For a step function, we need two line segments for each point
@@ -153,13 +151,6 @@ const LineChartComponent = ({ xLabel = "Time", yLabel = "Value", onDataUpdate, i
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setCsvContent(e.target.result);
-      };
-      reader.readAsText(file);
-    }
   };
 
   const handleUpload = () => {
@@ -214,7 +205,7 @@ const LineChartComponent = ({ xLabel = "Time", yLabel = "Value", onDataUpdate, i
   // Helper function to convert time string to 24-hour format
   const convertTo24HourFormat = (timeString) => {
     const [time, period] = timeString.split(' ');
-    let [hours, minutes] = time.split(':').map(Number);
+    let [hours] = time.split(':').map(Number); // Remove 'minutes' from here
     
     if (period.toLowerCase() === 'pm' && hours !== 12) {
       hours += 12;

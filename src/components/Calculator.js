@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import ContourChart from './ContourChart';
 import NPVComparisonChart from './NPVComparisonChart';
 import ProfileCharts from './ProfileCharts';
@@ -110,6 +110,14 @@ const Calculator = ({ loadData, energyChargeData, inputs, ranges }) => {
       >
         {isCalculating ? 'Calculating...' : 'Start Calculation'}
       </button>
+      
+      {/* Add this block to display the error message */}
+      {error && (
+        <div style={{ color: 'red', marginBottom: '10px' }}>
+          Error: {error}
+        </div>
+      )}
+
       <div style={{ marginBottom: '10px' }}>
         <div style={{ width: '100%', backgroundColor: '#e0e0e0', borderRadius: '5px' }}>
           <div
@@ -142,7 +150,7 @@ const Calculator = ({ loadData, energyChargeData, inputs, ranges }) => {
             </p>
             {bestCombination && (
               <p style={{ fontSize: '16px', marginBottom: '10px', fontWeight: 'bold' }}>
-                Selected combination: Capacity {bestCombination.capacity.toFixed(2)} kWh, Power {bestCombination.power.toFixed(2)} kW
+                Recommended: Capacity {bestCombination.capacity.toFixed(2)} kWh, Power {bestCombination.power.toFixed(2)} kW
               </p>
             )}
             <NPVComparisonChart bestCombination={bestCombination} />
@@ -168,16 +176,5 @@ const Calculator = ({ loadData, energyChargeData, inputs, ranges }) => {
   );
 };
 
-const tableHeaderStyle = {
-  backgroundColor: '#f2f2f2',
-  padding: '8px',
-  textAlign: 'left',
-  borderBottom: '1px solid #ddd'
-};
-
-const tableCellStyle = {
-  padding: '8px',
-  borderBottom: '1px solid #ddd'
-};
 
 export default Calculator;

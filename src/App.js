@@ -94,7 +94,7 @@ function App() {
 
         <Accordion defaultExpanded>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography variant="h5">Load and Energy Price Data</Typography>
+            <Typography variant="h6">Load and Energy Price Data</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography variant="body2" paragraph>
@@ -119,7 +119,7 @@ function App() {
 
         <Accordion>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography variant="h5">System Parameters</Typography>
+            <Typography variant="h6">System Parameters</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography variant="body2" paragraph>
@@ -131,7 +131,7 @@ function App() {
 
         <Accordion>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography variant="h5">Study Range</Typography>
+            <Typography variant="h6">Study Range</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography variant="body2" paragraph>
@@ -143,7 +143,7 @@ function App() {
 
         <Divider style={{ margin: '20px 0' }} />
 
-        <Typography variant="h5" gutterBottom>Results</Typography>
+        <Typography variant="h6" gutterBottom>Results</Typography>
         <Paper elevation={2} style={{ padding: '20px' }}>
           <Typography variant="body2" paragraph>
             Based on the provided data and parameters, here are the calculated results for the optimal battery size and system performance.

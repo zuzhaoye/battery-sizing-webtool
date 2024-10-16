@@ -25,7 +25,9 @@ const ContourChart = ({ data, isCalculating, bestCombination }) => {
   };
 
   useEffect(() => {
-    if (!isCalculating && data.length > 0 && chartRef.current) {
+    const chartElement = chartRef.current; // Store the ref value in a variable
+
+    if (!isCalculating && data.length > 0 && chartElement) {
       const { z, x, y } = processData(data);
       
       const traces = [{
@@ -93,14 +95,14 @@ const ContourChart = ({ data, isCalculating, bestCombination }) => {
         displayModeBar: false
       };
 
-      Plotly.newPlot(chartRef.current, traces, layout, config);
-    } else if (chartRef.current) {
-      Plotly.purge(chartRef.current);
+      Plotly.newPlot(chartElement, traces, layout, config);
+    } else if (chartElement) {
+      Plotly.purge(chartElement);
     }
 
     return () => {
-      if (chartRef.current) {
-        Plotly.purge(chartRef.current);
+      if (chartElement) {
+        Plotly.purge(chartElement);
       }
     };
   }, [data, isCalculating, bestCombination]);
