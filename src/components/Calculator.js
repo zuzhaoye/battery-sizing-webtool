@@ -4,6 +4,7 @@ import NPVComparisonChart from './NPVComparisonChart';
 import ProfileCharts from './ProfileCharts';
 import { BESSOptimization } from '../utils/BESSOptimization';
 
+
 const capacityIntervals = 5
 const powerIntervals = 5
 const totalCombinations = capacityIntervals * powerIntervals;
