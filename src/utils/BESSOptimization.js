@@ -10,7 +10,7 @@ export const BESSOptimization = async ({ capacity, power, loadData, energyCharge
   const p_P = inputs.find(input => input.name === 'Cost of Power Equipment')?.value || 0;
   const p_I = inputs.find(input => input.name === 'Cost of Installation')?.value || 0;
   const kappa = inputs.find(input => input.name === 'Efficiency')?.value / 100 || 1;
-  const deg = inputs.find(input => input.name === 'Degradation')?.value / 100 || 0.02;
+  const degradationRate = inputs.find(input => input.name === 'Degradation')?.value / 100 || 0.02;
   const holdingPeriod = inputs.find(input => input.name === 'Holding Period')?.value || 10;
   const SoC_min = 0.1;
   const SoC_max = 0.95;
@@ -37,14 +37,23 @@ export const BESSOptimization = async ({ capacity, power, loadData, energyCharge
     const totalInitialCost = p_B * E_cap + p_P * P_max + p_I;
     let npvWithBattery = totalInitialCost;
     let npvWithoutBattery = 0;
+    let npvAnnualCostWithBattery = 0;
+    let npvAnnualCostWithoutBattery = 0;
     const npvByYear = {
       withBattery: [npvWithBattery],
       withoutBattery: [npvWithoutBattery]
     };
 
     for (let year = 1; year <= holdingPeriod; year++) {
-      npvWithBattery += annualCostWithBattery * Math.pow(1 + deg, year) / Math.pow(1 + discountRate, year);
-      npvWithoutBattery += annualCostWithoutBattery / Math.pow(1 + discountRate, year);
+      // Assuming every 1% degradation will incur an increase of overall cost by 1.5%
+      npvAnnualCostWithBattery = annualCostWithBattery * Math.pow(1 + degradationRate*1.5, year-1) / Math.pow(1 + discountRate, year);
+      npvAnnualCostWithoutBattery = annualCostWithoutBattery / Math.pow(1 + discountRate, year);
+      // If operating the battery does not provide cost savings, simply stop from using batteries
+      if (npvAnnualCostWithBattery > npvAnnualCostWithoutBattery) {
+        npvAnnualCostWithBattery = npvAnnualCostWithoutBattery;
+      }
+      npvWithBattery += npvAnnualCostWithBattery;
+      npvWithoutBattery += npvAnnualCostWithoutBattery;
 
       npvByYear.withBattery.push(npvWithBattery);
       npvByYear.withoutBattery.push(npvWithoutBattery);

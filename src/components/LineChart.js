@@ -22,6 +22,10 @@ const LineChartComponent = ({ xLabel = "Time", yLabel = "Value", onDataUpdate, i
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [error, setError] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFileName, setSelectedFileName] = useState(null);
+
+  // Add a unique identifier for this component instance
+  const uniqueId = useMemo(() => Math.random().toString(36).substr(2, 9), []);
 
   // Wrap padding object in useMemo
   const padding = useMemo(() => ({ left: 60, right: 20, top: 20, bottom: 40 }), []);
@@ -151,6 +155,8 @@ const LineChartComponent = ({ xLabel = "Time", yLabel = "Value", onDataUpdate, i
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
+    setSelectedFileName(file ? file.name : null);
+    setError(""); // Clear any previous errors
   };
 
   const handleUpload = () => {
@@ -415,67 +421,85 @@ const LineChartComponent = ({ xLabel = "Time", yLabel = "Value", onDataUpdate, i
         {/* File upload and download section */}
         <div style={{ 
           display: 'flex', 
-          justifyContent: 'space-between',
-          alignItems: 'center'
+          flexDirection: 'column',
+          gap: '10px'
         }}>
-          <div>
-            <input
-              type="file"
-              accept=".csv"
-              onChange={handleFileSelect}
-              style={{ display: 'none' }}
-              id={`fileInput-${xLabel}`}
-            />
-            <label htmlFor={`fileInput-${xLabel}`} style={{
-              padding: '8px 15px',
-              backgroundColor: '#007bff',
-              color: 'white',
-              borderRadius: '4px',
-              cursor: 'pointer',
-              transition: 'background-color 0.3s',
-              fontSize: '14px'
-            }}
-            onMouseEnter={(e) => e.target.style.backgroundColor = '#0056b3'}
-            onMouseLeave={(e) => e.target.style.backgroundColor = '#007bff'}
-            >
-              Choose File
-            </label>
+          <div style={{
+            display: 'flex', 
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }}>
+            <div>
+              <input
+                type="file"
+                accept=".csv"
+                onChange={handleFileSelect}
+                style={{ display: 'none' }}
+                id={`fileInput-${uniqueId}`}
+              />
+              <label htmlFor={`fileInput-${uniqueId}`} style={{
+                padding: '8px 15px',
+                backgroundColor: '#007bff',
+                color: 'white',
+                borderRadius: '4px',
+                cursor: 'pointer',
+                transition: 'background-color 0.3s',
+                fontSize: '14px'
+              }}
+              onMouseEnter={(e) => e.target.style.backgroundColor = '#0056b3'}
+              onMouseLeave={(e) => e.target.style.backgroundColor = '#007bff'}
+              >
+                Choose File
+              </label>
+              <button 
+                onClick={handleUpload}
+                style={{
+                  padding: '8px 15px',
+                  backgroundColor: '#28a745',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  marginLeft: '10px',
+                  transition: 'background-color 0.3s',
+                  fontSize: '14px'
+                }}
+                onMouseEnter={(e) => e.target.style.backgroundColor = '#218838'}
+                onMouseLeave={(e) => e.target.style.backgroundColor = '#28a745'}
+              >
+                Upload
+              </button>
+            </div>
             <button 
-              onClick={handleUpload}
+              onClick={downloadCSV}
               style={{
                 padding: '8px 15px',
-                backgroundColor: '#28a745',
+                backgroundColor: '#17a2b8',
                 color: 'white',
                 border: 'none',
                 borderRadius: '4px',
                 cursor: 'pointer',
-                marginLeft: '10px',
                 transition: 'background-color 0.3s',
                 fontSize: '14px'
               }}
-              onMouseEnter={(e) => e.target.style.backgroundColor = '#218838'}
-              onMouseLeave={(e) => e.target.style.backgroundColor = '#28a745'}
+              onMouseEnter={(e) => e.target.style.backgroundColor = '#138496'}
+              onMouseLeave={(e) => e.target.style.backgroundColor = '#17a2b8'}
             >
-              Upload
+              Download CSV Template
             </button>
           </div>
-          <button 
-            onClick={downloadCSV}
-            style={{
-              padding: '8px 15px',
-              backgroundColor: '#17a2b8',
-              color: 'white',
-              border: 'none',
+          {selectedFileName && (
+            <div style={{
+              fontSize: '14px',
+              color: '#495057',
+              backgroundColor: '#e9ecef',
+              padding: '5px 10px',
               borderRadius: '4px',
-              cursor: 'pointer',
-              transition: 'background-color 0.3s',
-              fontSize: '14px'
-            }}
-            onMouseEnter={(e) => e.target.style.backgroundColor = '#138496'}
-            onMouseLeave={(e) => e.target.style.backgroundColor = '#17a2b8'}
-          >
-            Download CSV Template
-          </button>
+              wordBreak: 'break-all'
+            }}>
+              Selected file: {selectedFileName}
+            </div>
+          )}
         </div>
       </div>
       
