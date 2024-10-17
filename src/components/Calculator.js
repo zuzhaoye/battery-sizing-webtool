@@ -76,7 +76,7 @@ const Calculator = ({ loadData, energyChargeData, inputs, ranges }) => {
         setResults(prevResults => [...prevResults, result]); // Update results incrementally
       } catch (err) {
         console.error('Error in optimization:', err);
-        setError(`Error in optimization: ${err.message}`);
+        setError(`Error during optimization, please consider refreshing the website: ${err.message}`);
       }
     };
 
