@@ -231,6 +231,10 @@ export const BESSOptimization = async ({ capacity, power, loadData, energyCharge
     };
   } finally {
     // Always clean up, even if an error occurred
+    // Cleanup
+    if (glpk && typeof glpk.free === 'function') {
+      glpk.free();
+    }
     lp = null;
     glpk = null;
   }

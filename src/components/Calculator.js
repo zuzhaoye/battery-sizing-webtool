@@ -75,7 +75,8 @@ const Calculator = ({ loadData, energyChargeData, inputs, ranges }) => {
         setResults(prevResults => [...prevResults, result]); // Update results incrementally
       } catch (err) {
         console.error('Error in optimization:', err);
-        setError(`Error during optimization, please consider refreshing the website: ${err.message}`);
+        // setError(`WebAssembly.Instance() out of memory, please refreshing the website to start new analysis: ${err.message}`);
+        setError(`Due to memory constraints, you may need to refresh the website before starting a new analysis.`);
       }
     };
 
@@ -113,7 +114,7 @@ const Calculator = ({ loadData, energyChargeData, inputs, ranges }) => {
       {/* Add this block to display the error message */}
       {error && (
         <div style={{ color: 'red', marginBottom: '10px' }}>
-          Error: {error}
+          {error}
         </div>
       )}
 
