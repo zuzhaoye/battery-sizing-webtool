@@ -90,7 +90,7 @@ function App() {
 
   return (
     <div className="App">
-      <Paper elevation={3} style={{ padding: '20px', margin: '20px', maxWidth: '1200px', marginLeft: 'auto', marginRight: 'auto' }}>
+      <Paper elevation={3} style={{ padding: '20px', margin: '20px', maxWidth: '1400px', marginLeft: 'auto', marginRight: 'auto' }}>
         <Typography variant="h3" gutterBottom>Battery Sizing Tool</Typography>
         <Typography variant="body1" paragraph>
           This tool helps you determine the optimal battery energy storage system (BESS) size for your building.

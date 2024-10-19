@@ -7,9 +7,9 @@ const InputTable = ({ onInputChange }) => {
     { name: 'Cost of Power Equipment', value: 150, unit: '$/kW' },
     { name: 'Cost of Installation', value: 10000, unit: '$' },
     { name: 'Efficiency', value: 90, unit: '%' },
-    { name: 'Degradation', value: 2, unit: '% per year' },
+    { name: 'Degradation Rate', value: 2, unit: '% per year' },
     { name: 'Holding Period', value: 10, unit: 'year' },
-    { name: 'Discount Rate', value: 5, unit: '%' },
+    { name: 'Discount Rate', value: 5, unit: '% per year' },
   ]);
 
   useEffect(() => {
