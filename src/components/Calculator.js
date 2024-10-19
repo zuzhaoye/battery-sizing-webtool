@@ -137,16 +137,17 @@ const Calculator = ({ loadData, energyChargeData, inputs, ranges }) => {
           <div style={{ flex: 1 }}>
             <h4 style={{ fontSize: '18px', marginBottom: '10px' }}>Contour Chart</h4>
             <p style={{ fontSize: '16px', marginBottom: '10px' }}>
-              This chart shows the lifetime costs for different combinations of battery energy capacity
-              and power limit. Darker colors indicate lower cost values. The red circle highlights the best combination.
+              This chart displays the lifetime costs, including the upfront BESS cost and electricity bills over the holding period,
+               for various combinations of battery capacity and power limit.
+               Darker colors represent lower costs, while the red circle highlights the optimal combination.
             </p>
             <ContourChart data={results} isCalculating={isCalculating} bestCombination={bestCombination} />
           </div>
           <div style={{ flex: 1 }}>
             <h4 style={{ fontSize: '18px', marginBottom: '10px' }}>Cost Comparison Over Time</h4>
             <p style={{ fontSize: '16px', marginBottom: '10px' }}>
-              This chart compares the cost over time for two scenarios:
-              with and without a battery storage system. A lower curve indicates a more financially beneficial scenario.
+            This chart compares the cumulative costs over time, in today's dollars, for two scenarios: one with a BESS and one without, based on the optimal combination. 
+            The lower curve represents the more financially favorable scenario.
             </p>
             {bestCombination && (
               <p style={{ fontSize: '16px', marginBottom: '10px', fontWeight: 'bold' }}>
@@ -159,8 +160,8 @@ const Calculator = ({ loadData, energyChargeData, inputs, ranges }) => {
             <div style={{ flex: 1 }}>
               <h4 style={{ fontSize: '18px', marginBottom: '10px' }}>Load and Battery SoC Profiles</h4>
               <p style={{ fontSize: '16px', marginBottom: '10px' }}>
-                These charts show the comparison between the original and new load profiles, 
-                as well as the battery energy and state of charge profiles over a 24-hour period.
+                These charts show the comparison between the original load profile without BESS and new load profile with BESS, 
+                as well as the BESS state of charge (SoC) profiles over a 24-hour period.
               </p>
               <ProfileCharts 
                 originalLoad={loadData.map(item => item.y)}

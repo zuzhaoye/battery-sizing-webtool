@@ -1,6 +1,8 @@
 import React from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Typography, Box, Divider } from '@mui/material';
 
+const secondaryColor = "#353c3d"; // Define the secondary color 
+
 function UserManual({ onClose }) {
   return (
     <Dialog 
@@ -23,18 +25,29 @@ function UserManual({ onClose }) {
       
       <DialogContent style={{ padding: '24px' }}>
         <Box mb={4}>
-          <Typography variant="h5" gutterBottom fontWeight="bold" color="secondary">
+          <Typography variant="h5" gutterBottom fontWeight="bold" color="primary">
             Introduction
           </Typography>
           <Typography variant="body1" align="justify" paragraph>
             The Battery Sizing Tool is a web application designed to help users determine the optimal battery energy storage system (BESS) size for their building. It allows users to input load profiles, energy prices, and system parameters to calculate the most cost-effective battery capacity and power limit.
+          </Typography>
+          <Typography variant="body1" align="justify" paragraph>
+            Determining the right size for a battery storage system involves careful consideration of various trade-offs:
+          </Typography>
+          <Typography variant="body1" align="justify" paragraph style={{ paddingLeft: '16px' }}>
+            • Under-investment in battery capacity may not provide sufficient storage to effectively offset load during peak demand periods, limiting the system's ability to reduce electricity bills.<br />
+            • Over-investment can lead to excessive upfront costs, increasing the breakeven period and potentially making the system economically unviable.<br />
+            • The optimal size balances these factors to maximize cost savings while ensuring a reasonable return on investment.
+          </Typography>
+          <Typography variant="body1" align="justify" paragraph>
+            This sizing tool is designed to consider all these impacting factors, including load profiles, energy prices, system costs, and operational parameters. By analyzing these variables comprehensively, it helps users identify the sweet spot where the battery capacity is large enough to provide significant benefits but not so large as to diminish economic returns.
           </Typography>
         </Box>
 
         <Divider style={{ margin: '24px 0' }} />
 
         <Box mb={4}>
-          <Typography variant="h5" gutterBottom fontWeight="bold" color="secondary">
+          <Typography variant="h5" gutterBottom fontWeight="bold" color="primary">
             Getting Started
           </Typography>
           <Typography variant="body1" align="justify" paragraph>
@@ -45,12 +58,12 @@ function UserManual({ onClose }) {
         <Divider style={{ margin: '24px 0' }} />
 
         <Box mb={4}>
-          <Typography variant="h5" gutterBottom fontWeight="bold" color="secondary">
+          <Typography variant="h5" gutterBottom fontWeight="bold" color="primary">
             Using the Tool
           </Typography>
 
           <Box mb={3}>
-            <Typography variant="h6" fontWeight="bold" color="primary">
+            <Typography variant="h6" fontWeight="bold" color={secondaryColor}>
               1. Load and Energy Price Data
             </Typography>
             <Typography variant="body1" align="justify" paragraph>
@@ -66,7 +79,7 @@ function UserManual({ onClose }) {
           </Box>
 
           <Box mb={3}>
-            <Typography variant="h6" fontWeight="bold" color="primary">
+            <Typography variant="h6" fontWeight="bold" color={secondaryColor}>
               2. System Parameters
             </Typography>
             <Typography variant="body1" align="justify" paragraph>
@@ -78,7 +91,7 @@ function UserManual({ onClose }) {
           </Box>
 
           <Box mb={3}>
-            <Typography variant="h6" fontWeight="bold" color="primary">
+            <Typography variant="h6" fontWeight="bold" color={secondaryColor}>
               3. Study Range
             </Typography>
             <Typography variant="body1" align="justify" paragraph>
@@ -87,7 +100,7 @@ function UserManual({ onClose }) {
           </Box>
 
           <Box mb={3}>
-            <Typography variant="h6" fontWeight="bold" color="primary">
+            <Typography variant="h6" fontWeight="bold" color={secondaryColor}>
               4. Results
             </Typography>
             <Typography variant="body1" align="justify" paragraph>
@@ -105,7 +118,7 @@ function UserManual({ onClose }) {
         <Divider style={{ margin: '24px 0' }} />
 
         <Box mb={4}>
-          <Typography variant="h5" gutterBottom fontWeight="bold" color="secondary">
+          <Typography variant="h5" gutterBottom fontWeight="bold" color="primary">
             Interpreting Results
           </Typography>
           <Typography variant="body1" align="justify" paragraph>
@@ -116,7 +129,7 @@ function UserManual({ onClose }) {
         <Divider style={{ margin: '24px 0' }} />
 
         <Box mb={4}>
-          <Typography variant="h5" gutterBottom fontWeight="bold" color="secondary">
+          <Typography variant="h5" gutterBottom fontWeight="bold" color="primary">
             Troubleshooting
           </Typography>
           <Typography variant="body1" align="justify" paragraph>
@@ -127,7 +140,7 @@ function UserManual({ onClose }) {
         <Divider style={{ margin: '24px 0' }} />
 
         <Box mb={4}>
-          <Typography variant="h5" gutterBottom fontWeight="bold" color="secondary">
+          <Typography variant="h5" gutterBottom fontWeight="bold" color="primary">
             Conclusion
           </Typography>
           <Typography variant="body1" align="justify" paragraph>
